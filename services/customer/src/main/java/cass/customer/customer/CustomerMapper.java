@@ -3,9 +3,9 @@ package cass.customer.customer;
 import cass.customer.customer.DTO.CustomerRequestDTO;
 import cass.customer.customer.DTO.CustomerResponseDTO;
 import cass.customer.customer.entity.Customer;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CustomerMapper {
 
     public Customer toCustomer(CustomerRequestDTO request) {

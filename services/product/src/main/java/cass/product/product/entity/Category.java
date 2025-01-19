@@ -1,6 +1,5 @@
-package cass.product.category;
+package cass.product.product.entity;
 
-import cass.product.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
