@@ -2,6 +2,7 @@ package cass.order.orderline;
 
 import cass.order.order.entity.Order;
 import cass.order.orderline.DTO.OrderLineRequestDTO;
+import cass.order.orderline.DTO.OrderLineResponseDTO;
 import cass.order.orderline.entity.OrderLine;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,11 @@ public class OrderLineMapper {
                 )
                 .productId(orderLineRequestDTO.productId())
                 .build();
+    }
+
+    public OrderLineResponseDTO toOrderLineResponseDTO(OrderLine orderLine) {
+        return new OrderLineResponseDTO(
+                orderLine.getQuantity()
+        );
     }
 }
