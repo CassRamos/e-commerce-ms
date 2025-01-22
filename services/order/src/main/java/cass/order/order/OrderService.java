@@ -10,6 +10,8 @@ import cass.order.order.DTO.OrderResponseDTO;
 import cass.order.order.entity.Order;
 import cass.order.orderline.DTO.OrderLineRequestDTO;
 import cass.order.orderline.OrderLineService;
+import cass.order.payment.PaymentClient;
+import cass.order.payment.PaymentRequestDTO;
 import cass.order.product.DTO.PurchaseRequestDTO;
 import cass.order.product.DTO.PurchaseResponseDTO;
 import cass.order.product.ProductClient;
@@ -30,6 +32,7 @@ public class OrderService {
     private final OrderLineService orderLineService;
     private final OrderMapper orderMapper;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
 
     public List<OrderResponseDTO> findAllOrders() {
         return orderRepository
@@ -66,7 +69,14 @@ public class OrderService {
             );
         }
 
-        //todo -> payment process
+        PaymentRequestDTO paymentRequest = new PaymentRequestDTO(
+                orderRequestDTO.amount(),
+                orderRequestDTO.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmationDTO(
