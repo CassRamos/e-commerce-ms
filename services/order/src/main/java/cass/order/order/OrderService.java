@@ -16,6 +16,7 @@ import cass.order.product.DTO.PurchaseRequestDTO;
 import cass.order.product.DTO.PurchaseResponseDTO;
 import cass.order.product.ProductClient;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,7 @@ public class OrderService {
                         String.format("Cannot find order. No order found with id: %s ", orderId)));
     }
 
+    @Transactional
     public Integer createdOrder(OrderRequestDTO orderRequestDTO) {
         CustomerResponseDTO customer = customerClient.findCustomerById(orderRequestDTO.customerId())
                 .orElseThrow(() -> new BusinessException(
